@@ -5,6 +5,9 @@ python-coveralls==2.9.2
 radon==4.1.0
 mock==3.0.5    # mock 4.x no longer supports Python 2.7
 pytest==4.6.3; # pytest 5.x no longer supports Python 2.7
+configparser<5 ;python_version == '2.7'
+isort<5 ;python_version == '2.7'
+zipp<3 ;python_version == '2.7'
 pylint==1.9.4; python_version == '2.7'
 pylint==2.3.1; python_version >= '3.4'
 -e .

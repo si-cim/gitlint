@@ -1,7 +1,24 @@
+# -*- coding: utf-8 -*-
+
 import logging
 import os
+import warnings
 
-import arrow
+########################################################################################################################
+# Arrow import hack
+# We need a hack to work around arrow printing a deprecation warning for python < 3.6
+# Since gitlint still supports python versions < 3.6, we don't want to show this message to our end users
+# Since arrow uses its own catch_warnings() block, it is impossible for us to disable the warning using warning filters
+# - Arrow code: https://github.com/arrow-py/arrow/blob/fb83f688f379719cb17770060009742c2c989e47/arrow/arrow.py#L22-L29
+# - catch_warnings() docs: https://docs.python.org/3/library/warnings.html#warnings.catch_warnings
+# To work around this, we monkeypatch warnings.showwarning while importing arrow, and then restore it
+
+showwarning_orig = warnings.showwarning    # noqa pylint: disable=all
+warnings.showwarning = lambda *args: None  # noqa pylint: disable=all
+import arrow                               # noqa pylint: disable=all
+warnings.showwarning = showwarning_orig    # noqa pylint: disable=all
+########################################################################################################################
+
 
 from gitlint import shell as sh
 # import exceptions separately, this makes it a little easier to mock them out in the unit tests

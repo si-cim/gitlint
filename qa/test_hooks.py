@@ -144,10 +144,10 @@ class HookTests(BaseTestCase):
 
         output_installed = gitlint("install-hook", _cwd=worktree_dir)
         expected_hook_path = os.path.join(tmp_git_repo, ".git", "hooks", "commit-msg")
-        expected_msg = "Successfully installed gitlint commit-msg hook in {0}\n".format(expected_hook_path)
+        expected_msg = "Successfully installed gitlint commit-msg hook in {0}\r\n".format(expected_hook_path)
         self.assertEqual(output_installed, expected_msg)
 
         output_uninstalled = gitlint("uninstall-hook", _cwd=worktree_dir)
         expected_hook_path = os.path.join(tmp_git_repo, ".git", "hooks", "commit-msg")
-        expected_msg = "Successfully uninstalled gitlint commit-msg hook from {0}\n".format(expected_hook_path)
+        expected_msg = "Successfully uninstalled gitlint commit-msg hook from {0}\r\n".format(expected_hook_path)
         self.assertEqual(output_uninstalled, expected_msg)

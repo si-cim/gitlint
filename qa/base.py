@@ -83,7 +83,6 @@ class BaseTestCase(TestCase):
         # Git on mac doesn't like unicode characters by default, so we need to set this option
         # http://stackoverflow.com/questions/5581857/git-and-the-umlaut-problem-on-mac-os-x
         git("config", "core.precomposeunicode", "true", _cwd=tmp_git_repo)
-
         return tmp_git_repo
 
     @staticmethod
@@ -160,7 +159,7 @@ class BaseTestCase(TestCase):
     @staticmethod
     def get_system_info_dict():
         """ Returns a dict with items related to system values logged by `gitlint --debug` """
-        expected_gitlint_version = gitlint("--version").replace("gitlint, version ", "").replace("\n", "")
+        expected_gitlint_version = gitlint("--version").replace("gitlint, version ", "").strip()
         expected_git_version = git("--version").replace("\n", "")
         return {'platform': platform.platform(), 'python_version': sys.version,
                 'git_version': expected_git_version, 'gitlint_version': expected_gitlint_version,

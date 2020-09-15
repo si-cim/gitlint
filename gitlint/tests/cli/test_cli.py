@@ -438,7 +438,7 @@ class CLITests(BaseTestCase):
         # Directory as config file
         config_path = self.get_sample_path("config")
         result = self.cli.invoke(cli.cli, ["--config", config_path])
-        expected_string = u"Error: Invalid value for \"-C\" / \"--config\": File \"{0}\" is a directory.".format(
+        expected_string = u"Error: Invalid value for '-C' / '--config': File '{0}' is a directory.".format(
             config_path)
         self.assertEqual(result.output.split("\n")[3], expected_string)
         self.assertEqual(result.exit_code, self.USAGE_ERROR_CODE)
@@ -446,7 +446,7 @@ class CLITests(BaseTestCase):
         # Non existing file
         config_path = self.get_sample_path(u"föo")
         result = self.cli.invoke(cli.cli, ["--config", config_path])
-        expected_string = u"Error: Invalid value for \"-C\" / \"--config\": File \"{0}\" does not exist.".format(
+        expected_string = u"Error: Invalid value for '-C' / '--config': File '{0}' does not exist.".format(
             config_path)
         self.assertEqual(result.output.split("\n")[3], expected_string)
         self.assertEqual(result.exit_code, self.USAGE_ERROR_CODE)
@@ -472,14 +472,14 @@ class CLITests(BaseTestCase):
         # try setting a non-existing target
         result = self.cli.invoke(cli.cli, ["--target", u"/föo/bar"])
         self.assertEqual(result.exit_code, self.USAGE_ERROR_CODE)
-        expected_msg = u"Error: Invalid value for \"--target\": Directory \"/föo/bar\" does not exist."
+        expected_msg = u"Error: Invalid value for '--target': Directory '/föo/bar' does not exist."
         self.assertEqual(result.output.split("\n")[3], expected_msg)
 
         # try setting a file as target
         target_path = self.get_sample_path(os.path.join("config", "gitlintconfig"))
         result = self.cli.invoke(cli.cli, ["--target", target_path])
         self.assertEqual(result.exit_code, self.USAGE_ERROR_CODE)
-        expected_msg = u"Error: Invalid value for \"--target\": Directory \"{0}\" is a file.".format(target_path)
+        expected_msg = u"Error: Invalid value for '--target': Directory '{0}' is a file.".format(target_path)
         self.assertEqual(result.output.split("\n")[3], expected_msg)
 
     @patch('gitlint.config.LintConfigGenerator.generate_config')
